@@ -1,0 +1,147 @@
+body {
+  background-color: black;
+}
+
+/*Menu*/
+
+#pesquisar {
+  color: white;
+  background-color: orangered;
+  width: 200px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+#pesquisar:hover {
+  background-color: transparent;
+  border: 1px solid #ff4500;
+  transition: 0.5s;
+}
+
+.navbar-toggler {
+  border: 1px solid rgba(255, 166, 0, 0.288);
+}
+
+/*LOGIN*/
+
+.masterlogin {
+  height: 90vh;
+  margin-top: 2%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.conteudo {
+  margin-top: 10%;
+  width: 800px;
+  height: 500px;
+  background: #1d1d1d;
+  border-radius: 10px;
+
+  color: white;
+}
+.text-center a {
+  margin-left: 10px;
+}
+
+.nav {
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 3%;
+}
+
+#tab-login {
+  background-color: transparent;
+  color: orange;
+  border: 1px solid orangered;
+  border-radius: 10px;
+  letter-spacing: 2px;
+  margin-right: 25px;
+}
+
+#tab-login:hover {
+  border: 1px solid #812402;
+  color: #812402;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+#tab-register {
+  color: #ffa500;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  margin-left: 10px;
+  transition: 0.5s;
+}
+
+#tab-register:hover {
+  border: 1px solid orangered;
+  border-radius: 10px;
+
+  transition: 0.5s;
+}
+
+.tab-content {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.form-outline {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.form-outline input {
+  height: 50px;
+}
+
+.btn {
+  width: 600px;
+  margin-left: 10%;
+  margin-right: 10%;
+  height: 50px;
+
+  background-color: orangered;
+  border: 1px solid orangered;
+}
+
+.btn:hover {
+  background-color: transparent;
+  border: 1px solid orangered;
+  color: orange;
+
+  transition: 0.5s;
+}
+
+#loginCheck {
+  background-color: transparent;
+  border: 1px solid orange;
+}
+#registerCheck {
+  background-color: transparent;
+  border: 1px solid orange;
+}
+
+.col-md-6 a {
+  color: #ffa500;
+  transition: 0.5s;
+}
+
+.col-md-6 a:hover {
+  color: rgb(253, 128, 82);
+  transition: 0.5s;
+}
+
+#forgotpass {
+  cursor: pointer;
+}
+.error-message {
+  color: red;
+}
+
+.drop-cor {
+  text-decoration: none;
+  color: #ffffff8f;
+}

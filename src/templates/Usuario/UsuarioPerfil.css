@@ -1,0 +1,66 @@
+.h2{
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+   text-align: center;
+}
+
+.button{
+    color: white;
+    text-decoration: none;
+    background-color: orangered;
+    width: 200px;
+    height: 50px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.button:hover{
+    background-color: transparent;
+    border: 1px solid orangered;
+    color: orange;
+}
+
+#imgperfil{
+    border-radius: 100%;
+}
+
+.buttondois{
+    color: white;
+    background-color: orangered;
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    width: 300px;
+}
+
+.buttondois:hover{
+    background-color: transparent;
+    border: 1px solid orangered;
+    color: orange;
+}
+
+.gravar{
+    color: white;
+    background-color: orangered;
+    border: none;
+   
+    border-radius: 10px;
+    height: 50px;
+    width: 400px;
+    margin-right: 10px;
+}
+
+.alterarsenha{
+    color: white;
+    background-color: orangered;
+    border: none;
+   
+    border-radius: 10px;
+    height: 50px;
+    width: 400px;
+}

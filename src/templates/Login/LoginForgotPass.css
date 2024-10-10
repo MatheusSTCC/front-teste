@@ -1,0 +1,39 @@
+.container{
+    display: block;
+    margin-top: 10%;
+}
+
+.login-logo{
+   text-align: center;
+}
+
+h5{
+    color: white;
+    text-transform:uppercase;
+    margin-top: 3%;
+    letter-spacing: 3px;
+}
+
+.my-3{
+    margin-left: 23em;
+    margin-right: 23em;
+}
+
+.my-3 label{
+    color: white;
+}
+
+.mt-1{
+    text-align: center;
+    color: white;
+}
+
+.mt-2 button{
+        width: 300px;
+        margin-left: 20px;
+        margin-right: 20px;
+}
+
+.shadow{
+    color: white;
+}

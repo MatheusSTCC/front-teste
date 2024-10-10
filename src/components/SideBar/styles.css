@@ -1,0 +1,59 @@
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  border: solid white 1px;
+  border-radius: 10px;
+}
+
+.sidebar a:hover {
+  font-weight: bold;
+  border: 1px solid transparent;
+  background-color: orangered;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.link {
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  height: 50px;
+  border: 1px solid orange;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.sair {
+  width: 150px;
+  color: white;
+  background-color: orangered;
+  border: 1px solid orangered;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  transition: 0.5s;
+}
+
+.sair:hover {
+  background-color: transparent;
+  color: orange;
+
+  transition: 0.5s;
+}
+
+.abrir {
+  width: 150px;
+  color: white;
+  background-color: orangered;
+  border: 1px solid orangered;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  transition: 0.5s;
+}
+
+.abrir:hover {
+  background-color: transparent;
+  color: orange;
+  transition: 0.5s;
+}

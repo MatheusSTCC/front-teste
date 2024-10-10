@@ -1,0 +1,143 @@
+body {
+  background-color: black;
+}
+
+/*Menu*/
+
+.btn-success {
+  color: white;
+  background-color: orangered;
+  width: 200px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.btn-success:hover {
+  background-color: transparent;
+  border: 1px solid orangered;
+  transition: 0.5s;
+}
+
+.navbar-toggler {
+  border: 1px solid rgba(255, 166, 0, 0.288);
+}
+
+/*CENTRAL DE AJUDA*/
+
+h1 {
+  text-align: center;
+  color: white;
+  margin-top: 10%;
+}
+
+h4 {
+  text-align: center;
+  color: white;
+  margin-top: 2%;
+}
+
+.master {
+  margin-top: 2%;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-bottom: 3em;
+
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 10px;
+  height: 30rem;
+}
+
+.form-group {
+  margin-top: 2%;
+  margin-left: 20%;
+  margin-right: 30%;
+}
+
+#formemail {
+  margin-top: 5%;
+}
+
+#formname {
+  margin-top: 3%;
+}
+.row {
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+.txtarea {
+  margin-top: 8%;
+}
+
+#reportar {
+  margin-left: 35%;
+  margin-top: 3%;
+
+  background-color: orangered;
+  color: white;
+  border: 1px solid orangered;
+  border-radius: 10px;
+  width: 200px;
+  height: 40px;
+
+  transition: 0.5s;
+}
+
+#reportar:hover {
+  background-color: transparent;
+  border: 1px solid orangered;
+  color: orangered;
+
+  transition: 0.5s;
+}
+
+label {
+  color: white;
+}
+
+
+.buttonpai{
+  display: flex;
+  margin-left: 18%;
+}
+
+.enviar{
+  width: 400px;
+ 
+  height: 50px;
+  border: 1px solid orangered;
+  border-radius: 10px;
+  background-color: transparent;
+  color: white;
+  transition: 0.5s;
+}
+
+.enviar:hover{
+  border-color: orange;
+  color: white;
+  transition: 0.5s;
+
+}
+
+.voltar{
+
+  width: 400px;
+margin-left: 15px;
+  height: 50px;
+  border: 1px solid orangered;
+  border-radius: 10px;
+  background-color: transparent;
+  color: white;
+  transition: 0.5s;
+
+}
+
+
+.voltar:hover{
+  border-color: orange;
+  color: white;
+  transition: 0.5s;
+
+}

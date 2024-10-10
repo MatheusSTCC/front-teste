@@ -1,0 +1,11 @@
+.table-wrapper {
+  max-height: 69vh;
+  overflow-y: auto;
+}
+.offcanvas-backdrop fade show {
+  opacity: 0;
+}
+.dropdown-toggle {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.55);
+}

@@ -1,0 +1,35 @@
+.form-perfil {
+  margin: 10px auto;
+  width: 480px;
+  padding: 20px;
+}
+.form-perfil img {
+  display: block;
+  margin: 10px auto;
+  border-radius: 20%;
+  box-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+.lusu{
+  margin-top: 2%;
+}
+
+.btn-warning{
+  color: white;
+}
+
+.voltar2{
+  border: 1px solid transparent;
+  width: 300px;
+  border-radius: 10px;
+  transition: 0.5s;
+  background-color: orangered;
+  color: white;
+}
+
+.voltar2:hover{
+  background-color: transparent;
+  transition: 0.5s;
+  border-color: orangered;
+  color: white;
+}

@@ -43,7 +43,7 @@ const UsuarioNovo = () => {
       },
       (error) => {
         const message = error.response.data.message;
-        setMessage(message);
+        setMessage("Esse emaild já foi cadastrado");
       }
     );
   };
@@ -188,6 +188,7 @@ const UsuarioNovo = () => {
                     "text-center h4 fst-italic py-4 rounded-2 border border-5 " +
                     (successful ? "border-success" : "border-danger")
                   }
+                  
                 >
                   {message}
                 </div>

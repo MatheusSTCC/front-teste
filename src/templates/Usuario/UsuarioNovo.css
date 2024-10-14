@@ -26,7 +26,7 @@
 
 .col-md-5 input{
     margin-left: 4%;
-    width: 1000px;
+    width: 500px;
 }
 
 
@@ -82,4 +82,44 @@
     color: white;
     background-color: orangered;
     transition: 0.5s;
+}
+
+.col-md-5 textarea{
+    margin-left: 1%;
+    border-radius: 10px;
+}
+
+.parte01{
+    display: flex;
+    margin-left: -3%;
+
+}
+
+.parte02{
+    display: flex;
+}
+
+.parte03{
+    display: flex;
+    margin-left: -2.5%;
+
+}
+
+.telefone{
+    margin-left: 2%;
+}
+.email{
+    margin-left: 2%;
+}
+
+.confirmpassword{
+    margin-left: 2%;
+}
+
+.textarea{
+    margin-left: 15%;
+}
+
+.send01{
+    margin-left: 19%;
 }

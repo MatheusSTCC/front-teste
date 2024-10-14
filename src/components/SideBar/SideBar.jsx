@@ -43,12 +43,6 @@ const Sidebar = () => {
             <Link className="link" to={"/"}>
               Home
             </Link>
-            <Link className="link" aria-current="page" to={"/faleconosco"}>
-              Fale conosco
-            </Link>
-            <Link className="link" aria-current="page" to={"/#"}>
-              Serviços
-            </Link>
 
             {currentUser.nivelAcesso === "ADMIN" && (
               <Link className="link" to={"/usuario"}>

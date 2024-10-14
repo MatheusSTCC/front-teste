@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/images/system-logo_128_x_128.png";
+import logo from "../../../src/assets/images/logoprincipal.png";
 import UsuarioService from "../../services/UsuarioService";
 import logologin from "../../assets/images/logoprin.png";
 import usu from "../../assets/images/usuário.png";
@@ -77,7 +77,7 @@ const Login = () => {
         <div className="container-fluid">
           <Link className="navbar-brand" to={"/principal"}>
             <img
-              src={logologin}
+              src={logo}
               alt="logo"
               style={{ width: " 200px", marginLeft: "14%" }}
             />
@@ -121,9 +121,7 @@ const Login = () => {
                   Home
                 </Link>
 
-                <Link className="nav-link" to={"/faleconosco"}>
-                  Fale conosco
-                </Link>
+               
               </ul>
             </div>
           </div>
@@ -214,12 +212,7 @@ const Login = () => {
                 <div className="row mb-4">
                   <div className="col-md-6 d-flex justify-content-center"></div>
 
-                  <div className="col-md-6 d-flex justify-content-center">
-                    {/* Simple link */}
-                    <Link id="forgotpass" to={"/forgotpass"} target="_blank">
-                      Esqueceu a senha?
-                    </Link>
-                  </div>
+                 
                 </div>
 
                 <button

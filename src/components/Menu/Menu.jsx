@@ -2,11 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
 import perfil from "../../assets/images/perfil_blz.jpg";
 import UsuarioService from "../../services/UsuarioService";
-import logo from "../../assets/images/logoprin.png";
+import logo from "../../../src/assets/images/logoprincipal.png";
 const Menu = () => {
   const currentUser = UsuarioService.getCurrentUser();
 
   const navigate = useNavigate();
+ 
+
 
   const logout = () => {
     UsuarioService.logout();
@@ -86,15 +88,7 @@ const Menu = () => {
               </li>
 
               <li className="nav-item dropdown">
-                <a
-                  className="dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Administrador
-                </a>
+               
                 <ul className="dropdown-menu dropdown-menu-dark">
                   <li>
                     <Link className="dropdown-item" to={"/#"}>
@@ -111,10 +105,8 @@ const Menu = () => {
                   </li>
                 </ul>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/faleconosco"}>
-                  Fale conosco
-                </Link>
+             <li className="nav-item">
+                
                 <li>
                   <hr className="dropdown-divider" />
                 </li>

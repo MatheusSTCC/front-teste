@@ -47,7 +47,7 @@ const UsuarioNovo = () => {
       },
       (error) => {
         const message = error.response.data.message;
-        setMessage("Esse emaild já foi cadastrado");
+        setMessage("Esse email já foi cadastrado");
       }
     );
   };
@@ -81,6 +81,8 @@ const UsuarioNovo = () => {
           <form className="filho" onSubmit={handleSubmit}>
             {!successful && (
               <>
+
+                <div className="parte01"> 
                 <div className="col-md-5">
                   <label
                     htmlFor="inputNome"
@@ -99,7 +101,7 @@ const UsuarioNovo = () => {
                 </div>
 
 
-                <div className="col-md-2">
+                <div className="col-md-2 telefone">
                   <label
                     htmlFor="inputTelefone"
                     className="form-label mb-1 fw-bold"
@@ -117,10 +119,32 @@ const UsuarioNovo = () => {
                   />
                 </div>
 
+              </div>
+
+                <div className="parte02"> 
+                <div className="col-md-2">
+                  <label
+                    htmlFor="inputCpf"
+                    className="form-label mb-1 fw-bold"
+                  >
+                    CPF:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="inputcpf"
+                    name="cpf"
+                    value={formData.cpf || ""}
+                    onChange={handleChange}
+                
+                  />
+                </div>
 
 
 
-                <div className="col-md-5">
+
+
+                <div className="col-md-5 email">
                   <label
                     htmlFor="inputEmail"
                     className="form-label mb-1 fw-bold"
@@ -129,7 +153,7 @@ const UsuarioNovo = () => {
                   </label>
                   <input
                     type="email"
-                    className="form-control"
+                    className="form-control "
                     id="inputEmail"
                     name="email"
                     value={formData.email || ""}
@@ -142,6 +166,11 @@ const UsuarioNovo = () => {
                     }}
                   />
                 </div>
+
+                </div>
+
+
+                <div className="parte03"> 
                 <div className="col-md-5">
                   <label
                     htmlFor="inputEmail"
@@ -151,7 +180,7 @@ const UsuarioNovo = () => {
                   </label>
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-control "
                     id="inputPassword"
                     name="password"
                     value={formData.password || ""}
@@ -163,7 +192,7 @@ const UsuarioNovo = () => {
                     }}
                   />
                 </div>
-                <div className="col-md-5">
+                <div className="col-md-5 confirmpassword">
                   <label
                     htmlFor="inputEmail"
                     className="form-label mb-1 fw-bold"
@@ -172,32 +201,32 @@ const UsuarioNovo = () => {
                   </label>
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-control "
                     id="passwordConfirm"
                     name="passwordConfirm"
                     value={formData.passwordConfirm || ""}
                     onChange={handleChange}
                   />
                 </div>
-
+                </div>
 
                 
-                <div className="col-md-5">
+                <div className="col-md-5 textarea">
                   <label
                     htmlFor="descricao"
                     className="form-label mb-1 fw-bold"
                   >
                     Descrição:
                   </label>
-                  <textarea name="descricao" id="descricao" cols="20" rows="10">Conte mais sobre você e sobre suas experiências</textarea>
+                  <textarea name="descricao" id="descricao" cols="140" rows="3">Conte mais sobre você e sobre suas experiências</textarea>
                 </div>
 
 
-
-
+              
+                { /*      
                 <p id="passwordVisibility" onClick={togglePassword}>
                   Mostrar
-                </p>
+                </p>*/}
 
                 {/* <div className="col-md-2">
                   <label
@@ -221,6 +250,7 @@ const UsuarioNovo = () => {
                   </select>
                 </div> */}
 
+                <div className="send01">
                 <div className="paigravar">
                   <button type="submit" className="gravar">
                     Gravar
@@ -230,13 +260,15 @@ const UsuarioNovo = () => {
                 <button type="button" className="voltarv2" onClick={() => navigate(-1)}>
                   Voltar
                 </button>
+                </div>
               </>
+              
             )}
             {message && (
               <div className="m-1">
                 <div
                   className={
-                    "text-center h4 fst-italic py-4 rounded-2 border border-5 " +
+                    "text-center h4 fst-italic  rounded-2 border border-5 " +
                     (successful ? "border-success" : "border-danger")
                   }
                   

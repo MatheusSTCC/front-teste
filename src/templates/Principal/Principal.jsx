@@ -6,6 +6,7 @@ import c3 from "../../assets/images/Carrocel 3.jpg";
 import logo from "../../assets/images/logoprin.png";
 import usu from "../../assets/images/usuário.png";
 import mec01 from "../../assets/images/mecânico 01.jpg";
+
 import mec02 from "../../assets/images/mecânico 02.jpg";
 import mec03 from "../../assets/images/mecânico 03.jpg";
 import quems from "../../assets/images/quem somos.jpg";
@@ -119,10 +120,9 @@ const Principal = () => {
             <img id="estrelas" src={cincoestrela} alt="" />
 
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloremque voluptatum numquam doloribus pariatur ad? Repellat
-              voluptates sint commodi beatae, r epellendus vel ipsa optio
-              quisquam cupiditate deleniti, laboriosam maxime, aliquid ex?
+            Olá! Sou Carlos, mecânico com 20 anos de experiência em serviços móveis. 
+            Ofereço consertos e manutenções de veículos na sua casa ou trabalho, com ferramentas profissionais e atendimento personalizado. 
+            Conte comigo para cuidar do seu carro com transparência e flexibilidade. 
             </p>
           </div>
 
@@ -131,10 +131,9 @@ const Principal = () => {
             <img id="estrelas" src={cincoestrela} alt="" />
 
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloremque voluptatum numquam doloribus pariatur ad? Repellat
-              voluptates sint commodi beatae, r epellendus vel ipsa optio
-              quisquam cupiditate deleniti, laboriosam maxime, aliquid ex?
+            Olá! Sou Robson, mecânico especializado em serviços automotivos a domicílio. 
+            Com anos de experiência, ofereço atendimento personalizado e de alta qualidade, desde diagnósticos até reparos. 
+            Conte comigo para um serviço rápido e confiável. Robson, seu mecânico de confiança! 
             </p>
           </div>
 
@@ -143,10 +142,9 @@ const Principal = () => {
             <img id="estrelas" src={cincoestrela} alt="" />
 
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloremque voluptatum numquam doloribus pariatur ad? Repellat
-              voluptates sint commodi beatae, r epellendus vel ipsa optio
-              quisquam cupiditate deleniti, laboriosam maxime, aliquid ex?
+            Olá! Sou Evandro, mecânico especializado em serviços automotivos a domicílio. 
+            Com anos de experiência, ofereço atendimento personalizado e de alta qualidade, desde diagnósticos até reparos. 
+            Conte comigo para um serviço rápido e confiável. Evandro, seu mecânico de confiança! 
             </p>
           </div>
         </div>
@@ -156,18 +154,14 @@ const Principal = () => {
         <img src={quems} alt="quem" />
 
         <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita
-          voluptatibus vel iusto nobis optio ut labore deserunt qui, ab magni
-          fugiat? Iste dicta hic illum ratione atque cumque error quasi!Lorem,
-          ipsum dolor sit amet consectetur adipisicing elit. Expedita
-          voluptatibus vel iusto nobis optio ut labore deserunt qui, ab magni
-          fugiat? Iste dicta hic illum ratione atque cumque error quasi!Lorem,
-          ipsum dolor sit amet consectetur adipisicing elit. Expedita
-          voluptatibus vel iusto nobis optio ut labore deserunt qui, ab magni
-          fugiat? Iste dicta hic illum ratione atque cumque error quasi!Lorem,
-          ipsum dolor sit amet consectetur adipisicing elit. Expedita
-          voluptatibus vel iusto nobis optio ut labore deserunt qui, ab magni
-          fugiat? Iste dicta hic illum ratione atque cumque error quasi!
+        A SOS Mecânica é uma empresa inovadora que conecta usuários a mecânicos especializados em atendimento a domicílio. 
+        Em apenas um ano de funcionamento, já conquistamos a confiança de nossos clientes ao oferecer serviços automotivos de alta qualidade diretamente na casa ou local de trabalho dos nossos usuários. 
+        Nossa missão é proporcionar comodidade e eficiência, eliminando a necessidade de deslocamento até oficinas tradicionais.
+Com uma equipe de mecânicos experientes e bem treinados, garantimos diagnósticos precisos, reparos rápidos e manutenção completa para que seu veículo esteja sempre em perfeitas condições. 
+Além disso, prezamos pela transparência e flexibilidade no agendamento, adaptando-nos às necessidades dos nossos clientes.
+Na SOS Mecânica, acreditamos que cuidar do seu carro deve ser uma experiência prática e sem complicações. 
+Por isso, estamos sempre prontos para atender com profissionalismo e um sorriso no rosto. Confie na SOS Mecânica para manter seu veículo em ótimo estado, onde quer que você esteja!
+Se precisar de mais alguma coisa, estou à disposição!
         </p>
       </div>
 
@@ -207,14 +201,7 @@ const Principal = () => {
               {/* Grid column */}
               <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4 text-light">
                 {/* Content */}
-                <h6 className="text-uppercase fw-bold mb-4 text-light">
-                  <i className="fas fa-gem me-3 text-light"></i>S.O.S mecânica
-                </h6>
-                <p>
-                  Here you can use rows and columns to organize your footer
-                  content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                  elit.
-                </p>
+              
               </div>
               {/* Grid column */}
 

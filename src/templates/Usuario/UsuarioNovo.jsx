@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate   } from "react-router-dom";
 import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import Sidebar from "../../components/Menu/Menu";
 import logo from "../../assets/images/home.png";
@@ -8,6 +8,7 @@ import "./UsuarioNovo.css";
 
 const UsuarioNovo = () => {
   // const [nivel, setNivel] = useState();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState();
@@ -23,6 +24,9 @@ const UsuarioNovo = () => {
         setNivel(e.target.value);
     }
 */
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -62,7 +66,11 @@ const UsuarioNovo = () => {
       passwordInputConfirm.type = "password";
       toggleButton.textContent = "Mostrar";
     }
+
+  
+    
   };
+    
 
   return (
     <div className="d-flex">
@@ -76,7 +84,7 @@ const UsuarioNovo = () => {
                 <div className="col-md-5">
                   <label
                     htmlFor="inputNome"
-                    className="form-label mb-1 fw-bold"
+                    className="form-label mb-1 fw-bold telefone"
                   >
                     Nome:
                   </label>
@@ -89,6 +97,29 @@ const UsuarioNovo = () => {
                     onChange={handleChange}
                   />
                 </div>
+
+
+                <div className="col-md-2">
+                  <label
+                    htmlFor="inputTelefone"
+                    className="form-label mb-1 fw-bold"
+                  >
+                    Telefone:
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="inputtelefone"
+                    name="telefone"
+                    value={formData.telefone || ""}
+                    onChange={handleChange}
+                
+                  />
+                </div>
+
+
+
+
                 <div className="col-md-5">
                   <label
                     htmlFor="inputEmail"
@@ -148,6 +179,22 @@ const UsuarioNovo = () => {
                     onChange={handleChange}
                   />
                 </div>
+
+
+                
+                <div className="col-md-5">
+                  <label
+                    htmlFor="descricao"
+                    className="form-label mb-1 fw-bold"
+                  >
+                    Descrição:
+                  </label>
+                  <textarea name="descricao" id="descricao" cols="20" rows="10">Conte mais sobre você e sobre suas experiências</textarea>
+                </div>
+
+
+
+
                 <p id="passwordVisibility" onClick={togglePassword}>
                   Mostrar
                 </p>
@@ -179,6 +226,10 @@ const UsuarioNovo = () => {
                     Gravar
                   </button>
                 </div>
+
+                <button type="button" className="voltarv2" onClick={() => navigate(-1)}>
+                  Voltar
+                </button>
               </>
             )}
             {message && (

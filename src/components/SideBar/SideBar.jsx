@@ -24,7 +24,7 @@ const Sidebar = () => {
         <div className="sidebar">
           <form className="d-flex flex-column justify-content-around align-items-center m-1 py-2 border-bottom rounded">
             <img
-              src={currentUser.foto ? currentUser.foto : perfil}
+              src={currentUser.foto ? 'data:image/jpeg;base64,' +  currentUser.foto : perfil}
               alt="logo"
               className="mt-2 w-25"
             />

@@ -15,6 +15,7 @@ const UsuarioPerfil = () => {
     id: null,
     nome: "",
     email: "",
+    foto: null,
     nivelAcesso: "",
   };
   const currentUser = UsuarioService.getCurrentUser();
@@ -23,24 +24,26 @@ const UsuarioPerfil = () => {
 
   const { id } = useParams();
   const _dbRecords = useRef(true);
-  const [formData, setFormData] = useState({});
-  const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState();
-  const [dataFile, setDataFile] = useState();
+  const [successful, setSuccessful] = useState(false);
+
+  const [file, setFile] = useState("");
+
+  const [formData, setFormData] = useState({});
   const [chosenImage, setChosenImage] = useState();
 
-  const setFile = (dataFile) => {
-    setDataFile(dataFile);
-  };
+  const setChosenFile = (dataFile) => {
+    setFile(dataFile);
+  }
 
   const setImage = (dataImage) => {
     setChosenImage(dataImage);
-  };
+  }
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setFormData((formData) => ({ ...formData, [name]: value }));
+    setUsuario((usuario) => ({ ...usuario, [name]: value }));
   };
 
   useEffect(() => {
@@ -59,26 +62,33 @@ const UsuarioPerfil = () => {
     navigate(`/usuarioalterarsenha/` + id);
   };
 
-  const updateUser = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    setMessage("");
     setSuccessful(false);
-    const name = document.getElementById("inputNome").value;
 
-    UsuarioService.update(id, { ...usuario, nome: name }).then(
+    UsuarioService.alterar(file, id, usuario).then(
       (response) => {
-        localStorage.removeItem("user");
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ ...usuario, nome: name })
-        );
         setMessage(response.data.message);
-      },
-      (error) => {
-        const message = error.response.data.message;
-        setMessage(message);
+        setSuccessful(true);
+        /*window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        })*/
+      }, (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setMessage(resMessage);
+        setSuccessful(false);
       }
-    );
-  };
+    )
+  }
+
 
   return (
     <div className="d-flex">
@@ -86,86 +96,101 @@ const UsuarioPerfil = () => {
       <div className="p-3 w-100">
         <Header goto={"/home"} title={"Perfil de Usuário"} logo={logo} />
         <section className="m-1 p-1 shadow-lg">
-          <form id="profile" className="form-perfil row g-2 rounded-2 shadow">
-            <div className="col-md-12">
-              <img
-                id="imgperfil"
-                src={usuario.foto ? usuario.foto : perfil}
-                alt="..."
-              />
-            </div>
-            <div className="col-md-12 text-center">
-              <ImageUploaderModal
-                setFile={setFile}
-                setImage={setImage}
-                chosenImage={chosenImage}
-              />
-            </div>
-            <div className="col-md-12 mb-3">
-              <label htmlFor="inputNome" className="form-label mb-1 fw-bold">
-                Nome:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="inputNome"
-                defaultValue={usuario.nome}
-              />
-            </div>
-            <div className="col-md-12 mb-3">
-              <label htmlFor="inputEmail4" className="form-label mb-1 fw-bold">
-                Email:
-              </label>
-              <input
-                type="email"
-                className="form-control text-center"
-                id="inputEmail4"
-                readOnly
-                defaultValue={usuario.email}
-              />
-            </div>
+          <form id="profile" className="form-perfil row g-2 rounded-2 shadow" onSubmit={handleSubmit}>
+            {!successful && (
+              <>
+                <div className="col-md-12">
+                  <img
+                    id="imgperfil"
+                    src={usuario.foto ? 'data:image/jpeg;base64,' + usuario.foto : perfil}
+                    alt="..."
+                  />
+                </div>
+                <div className="col-md-12 text-center">
+                  <ImageUploaderModal
+                    setFile={setFile}
+                    setImage={setImage}
+                    chosenImage={chosenImage}
+                  />
+                </div>
+                <div className="col-md-12 mb-3">
+                  <label htmlFor="inputNome" className="form-label mb-1 fw-bold">
+                    Nome:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputNome"
+                    name="nome"
+                    value={usuario.nome || ""}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-12 mb-3">
+                  <label htmlFor="inputEmail4" className="form-label mb-1 fw-bold">
+                    Email:
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control text-center"
+                    id="inputEmail4"
+                    readOnly
+                    defaultValue={usuario.email}
+                  />
+                </div>
 
-            <div className="col-md-6 mb-3">
-              <label
-                htmlFor="inputnivelAcesso"
-                className="form-label mb-1 fw-bold"
-              >
-                Nível de Acesso:
-              </label>
-              <input
-                type="text"
-                className="form-control text-center"
-                id="inputnivelAcesso"
-                readOnly
-                defaultValue={usuario.nivelAcesso}
-              />
-            </div>
-            <div className="col-md-6 mb-3">
-              <label htmlFor="inputStatus" className="form-label mb-1 fw-bold">
-                Status:
-              </label>
-              <input
-                type="text"
-                className="form-control text-center"
-                id="inputStatus"
-                readOnly
-                defaultValue={usuario.statusUsuario}
-              />
-            </div>
+                <div className="col-md-6 mb-3">
+                  <label
+                    htmlFor="inputnivelAcesso"
+                    className="form-label mb-1 fw-bold"
+                  >
+                    Nível de Acesso:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control text-center"
+                    id="inputnivelAcesso"
+                    readOnly
+                    defaultValue={usuario.nivelAcesso}
+                  />
+                </div>
+                <div className="col-md-6 mb-3">
+                  <label htmlFor="inputStatus" className="form-label mb-1 fw-bold">
+                    Status:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control text-center"
+                    id="inputStatus"
+                    readOnly
+                    defaultValue={usuario.statusUsuario}
+                  />
+                </div>
 
-            <div className="col-12 mb-2 d-flex justify-content-between">
-              <button type="submit" className="gravar" onClick={updateUser}>
-                Gravar Alterações
-              </button>
+                <div className="col-12 mb-2 d-flex justify-content-between">
+                  <button type="submit" className="gravar" >
+                    Gravar Alterações
+                  </button>
 
-              <button
-                type="button"
-                onClick={goToAlterarSenha}
-                className="alterarsenha"
-              >
-                Alterar a Senha
-              </button>
-            </div>
+                  <button
+                    type="button"
+                    onClick={goToAlterarSenha}
+                    className="alterarsenha"
+                  >
+                    Alterar a Senha
+                  </button>
+                </div>
+              </>
+            )}
+            {message && (
+              <div className="m-1">
+                <div className={
+                  "text-center h4 fst-italic py-4 rounded-2 " + (successful ? "bg-success" : "bg-danger")
+                }>
+                  {message}
+                </div>
+              </div>
+            )}
           </form>
         </section>
       </div>

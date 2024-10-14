@@ -46,6 +46,20 @@ const create = (data) => {
   return http.mainInstance.post(API_URL + "create", formData);
 };
 
+const alterar = (file, id, data) => {
+  const formData = new FormData();
+
+  formData.append("file", file);
+  formData.append("nome", data.nome);
+  formData.append("email", data.email);
+
+  for (const key of formData.entries()) {
+    console.log(key[0] + ', ' + key[1]);
+  } 
+
+  return http.multipartInstance.put(API_URL + `alterar/${id}`, formData);
+};
+
 const update = (id, data) => {
   return http.mainInstance.put(API_URL + `update/${id}`, data);
 };
@@ -70,6 +84,7 @@ const UsuarioService = {
   getCurrentUser,
   create,
   update,
+  alterar,
   alterarSenha,
   findByNome,
 };

@@ -44,10 +44,16 @@ const Sidebar = () => {
               Home
             </Link>
 
+            <Link className="link" to={"/privacidade"}>
+              Política de privacidade
+              </Link>
+
             {currentUser.nivelAcesso === "ADMIN" && (
               <Link className="link" to={"/usuario"}>
                 Usuário
               </Link>
+
+             
             )}
           </nav>
         </div>

@@ -21,6 +21,8 @@ const UsuarioPerfil = () => {
   const currentUser = UsuarioService.getCurrentUser();
 
   const [usuario, setUsuario] = useState(objectValues);
+    console.log(currentUser)
+
 
   const { id } = useParams();
   const _dbRecords = useRef(true);

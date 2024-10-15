@@ -1,4 +1,4 @@
-import { Link, useNavigate   } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import Sidebar from "../../components/Menu/Menu";
 import logo from "../../assets/images/home.png";
@@ -15,7 +15,10 @@ const UsuarioNovo = () => {
 
   const handleChange = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    if (name === "telefone") {
+      value = aplicarMascaraTelefone(value);
+    }
     setFormData((formData) => ({ ...formData, [name]: value }));
   };
   /*
@@ -25,7 +28,20 @@ const UsuarioNovo = () => {
     }
 */
 
+  const aplicarMascaraTelefone = (input) => {
+    let value = input.replace(/\D/g, "");
+    if (value.length > 10) {
+      value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+    } else if (value.length > 6) {
+      value = value.replace(/^(\d{2})(\d{4})(\d{4})$/, "($1) $2-$3");
+    } else if (value.length > 2) {
+      value = value.replace(/^(\d{2})(\d{1,4})$/, "($1) $2");
+    } else if (value.length === 2) {
+      value = value.replace(/^(\d{2})/, "($1)");
+    }
 
+    return value;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,7 +63,7 @@ const UsuarioNovo = () => {
       },
       (error) => {
         const message = error.response.data.message;
-        setMessage("Esse email já foi cadastrado");
+        setMessage(message);
       }
     );
   };
@@ -66,11 +82,7 @@ const UsuarioNovo = () => {
       passwordInputConfirm.type = "password";
       toggleButton.textContent = "Mostrar";
     }
-
-  
-    
   };
-    
 
   return (
     <div className="d-flex">
@@ -81,136 +93,144 @@ const UsuarioNovo = () => {
           <form className="filho" onSubmit={handleSubmit}>
             {!successful && (
               <>
+                <div className="parte01">
+                  <div className="col-md-5">
+                    <label
+                      htmlFor="inputNome"
+                      className="form-label mb-1 fw-bold telefone"
+                    >
+                      Nome:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputNome"
+                      name="nome"
+                      value={formData.nome || ""}
+                      onChange={handleChange}
+                    />
+                  </div>
 
-                <div className="parte01"> 
-                <div className="col-md-5">
-                  <label
-                    htmlFor="inputNome"
-                    className="form-label mb-1 fw-bold telefone"
-                  >
-                    Nome:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputNome"
-                    name="nome"
-                    value={formData.nome || ""}
-                    onChange={handleChange}
-                  />
+                  <div className="col-md-2 telefone">
+                    <label
+                      htmlFor="inputTelefone"
+                      className="form-label mb-1 fw-bold"
+                    >
+                      Telefone:
+                    </label>
+                    <input
+                      name="telefone"
+                      type="text"
+                      className="form-control"
+                      id="exampleFormControlInput1"
+                      placeholder="Telefone com ddd"
+                      onChange={handleChange}
+                      maxLength={15}
+                      value={formData.telefone}
+                    />
+                  </div>
                 </div>
 
+                <div className="parte02">
+                  <div className="col-md-2">
+                    <label
+                      htmlFor="inputCpf"
+                      className="form-label mb-1 fw-bold"
+                    >
+                      CPF:
+                    </label>
 
-                <div className="col-md-2 telefone">
-                  <label
-                    htmlFor="inputTelefone"
-                    className="form-label mb-1 fw-bold"
-                  >
-                    Telefone:
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="inputtelefone"
-                    name="telefone"
-                    value={formData.telefone || ""}
-                    onChange={handleChange}
-                
-                  />
+                    <input
+                      name="cpf"
+                      type="text"
+                      className="form-control"
+                      id="inputcpf"
+                      placeholder="cpf"
+                      onChange={handleChange}
+                      maxLength={11}
+                      value={formData.cpf || ""}
+                    />
+                  </div>
+
+                  <div className="col-md-5 email">
+                    <label
+                      htmlFor="inputEmail"
+                      className="form-label mb-1 fw-bold"
+                    >
+                      Email:
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control "
+                      id="inputEmail"
+                      name="email"
+                      value={formData.email || ""}
+                      onChange={(e) => {
+                        if (message) {
+                          setMessage("");
+                        }
+
+                        handleChange(e);
+                      }}
+                    />
+                  </div>
                 </div>
 
-              </div>
-
-                <div className="parte02"> 
-                <div className="col-md-2">
-                  <label
-                    htmlFor="inputCpf"
-                    className="form-label mb-1 fw-bold"
-                  >
-                    CPF:
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="inputcpf"
-                    name="cpf"
-                    value={formData.cpf || ""}
-                    onChange={handleChange}
-                
-                  />
-                </div>
-
-
-
-
-
-                <div className="col-md-5 email">
-                  <label
-                    htmlFor="inputEmail"
-                    className="form-label mb-1 fw-bold"
-                  >
-                    Email:
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control "
-                    id="inputEmail"
-                    name="email"
-                    value={formData.email || ""}
-                    onChange={(e) => {
-                      if (message) {
-                        setMessage("");
-                      }
-
-                      handleChange(e);
-                    }}
-                  />
-                </div>
-
-                </div>
-
-
-                <div className="parte03"> 
-                <div className="col-md-5">
-                  <label
-                    htmlFor="inputEmail"
-                    className="form-label mb-1 fw-bold"
-                  >
-                    Senha:
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control "
-                    id="inputPassword"
-                    name="password"
-                    value={formData.password || ""}
-                    onChange={(e) => {
-                      if (message) {
-                        setMessage("");
-                      }
-                      handleChange(e);
-                    }}
-                  />
+                <div className="parte03">
+                  <div className="col-md-5">
+                    <label
+                      htmlFor="inputEmail"
+                      className="form-label mb-1 fw-bold"
+                    >
+                      Senha:
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control "
+                      id="inputPassword"
+                      name="password"
+                      value={formData.password || ""}
+                      onChange={(e) => {
+                        if (message) {
+                          setMessage("");
+                        }
+                        handleChange(e);
+                      }}
+                    />
+                  </div>
+                  <div className="col-md-5 confirmpassword">
+                    <label
+                      htmlFor="inputEmail"
+                      className="form-label mb-1 fw-bold"
+                    >
+                      Confirmação de senha:
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control "
+                      id="passwordConfirm"
+                      name="passwordConfirm"
+                      value={formData.passwordConfirm || ""}
+                      onChange={handleChange}
+                    />
+                  </div>
                 </div>
                 <div className="col-md-5 confirmpassword">
                   <label
                     htmlFor="inputEmail"
                     className="form-label mb-1 fw-bold"
                   >
-                    Confirmação de senha:
+                    Cidade:
                   </label>
                   <input
-                    type="password"
+                    type="cidade"
                     className="form-control "
-                    id="passwordConfirm"
-                    name="passwordConfirm"
-                    value={formData.passwordConfirm || ""}
+                    id="cidade"
+                    name="cidade"
+                    value={formData.cidade || ""}
                     onChange={handleChange}
                   />
                 </div>
-                </div>
-
-                
                 <div className="col-md-5 textarea">
                   <label
                     htmlFor="descricao"
@@ -218,12 +238,16 @@ const UsuarioNovo = () => {
                   >
                     Descrição:
                   </label>
-                  <textarea name="descricao" id="descricao" cols="140" rows="3">Conte mais sobre você e sobre suas experiências</textarea>
+                  <textarea
+                    placeholder=" Conte mais sobre você e sobre suas experiências"
+                    name="descricao"
+                    id="descricao"
+                    cols="140"
+                    rows="3"
+                  ></textarea>
                 </div>
 
-
-              
-                { /*      
+                {/*      
                 <p id="passwordVisibility" onClick={togglePassword}>
                   Mostrar
                 </p>*/}
@@ -251,18 +275,21 @@ const UsuarioNovo = () => {
                 </div> */}
 
                 <div className="send01">
-                <div className="paigravar">
-                  <button type="submit" className="gravar">
-                    Gravar
+                  <div className="paigravar">
+                    <button type="submit" className="gravar">
+                      Gravar
+                    </button>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="voltarv2"
+                    onClick={() => navigate(-1)}
+                  >
+                    Voltar
                   </button>
                 </div>
-
-                <button type="button" className="voltarv2" onClick={() => navigate(-1)}>
-                  Voltar
-                </button>
-                </div>
               </>
-              
             )}
             {message && (
               <div className="m-1">
@@ -271,7 +298,6 @@ const UsuarioNovo = () => {
                     "text-center h4 fst-italic  rounded-2 border border-5 " +
                     (successful ? "border-success" : "border-danger")
                   }
-                  
                 >
                   {message}
                 </div>

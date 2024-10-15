@@ -17,6 +17,7 @@ import UsuarioPerfil from "../templates/Usuario/UsuarioPerfil"
 import FaleConosco from "../templates/Mensagem/FaleConosco"
 import UsuarioAlterarSenha from "../templates/Usuario/UsuarioAlterarSenha"
 import Principal from "../templates/Principal/Principal"
+import Privacidade from "../templates/privacidade/Privacidade"
 
 const AppRoutes = () => {
   return (
@@ -31,6 +32,7 @@ const AppRoutes = () => {
         <Route path="/mensagem" element={<Mensagem />} />
         <Route path="/mensagemler/:id" element={<MensagemLer />} />
         <Route path="/faleconosco" element={<FaleConosco />} />
+        <Route path="/privacidade" element={<Privacidade />} />
 
         <Route path="/usuario" element={<Usuario />} />
         <Route path="/usuarioslista" element={<UsuariosLista />} />

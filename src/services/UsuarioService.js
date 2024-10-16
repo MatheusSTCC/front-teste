@@ -51,8 +51,26 @@ const create = async (data) => {
   return http.mainInstance.post(API_URL + "create", formData);
 };
 
+const createAdmin = async (data) => {
+  const formData = new FormData();
+
+  formData.append("nome", data.nome);
+  formData.append("email", data.email);
+  formData.append("nivelAcesso", data.nivelAcesso);
+  formData.append("senha", data.password);
+  formData.append("descricao", data.descricao);
+  formData.append("cidade", data.cidade);
+  formData.append("telefone", data.telefone);
+  formData.append("cpf", data.cpf);
+
+  return http.mainInstance.post(API_URL + "admin/create", formData);
+};
+
 const alterar = (id, data) => {
   return http.multipartInstance.put(API_URL + `alterar/${id}`, data);
+};
+const alterarPeloAdmin = (id, data) => {
+  return http.mainInstance.put(API_URL + `admin/alterar/${id}`, data);
 };
 
 const update = (id, data) => {
@@ -82,6 +100,8 @@ const UsuarioService = {
   alterar,
   alterarSenha,
   findByNome,
+  alterarPeloAdmin,
+  createAdmin,
 };
 
 export default UsuarioService;

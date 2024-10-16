@@ -16,28 +16,41 @@ const UsuarioEditar = () => {
   const [usuario, setUsuario] = useState(objectValues);
 
   const { id } = useParams();
-  const _dbRecords = useRef(true);
-  const [formData, setFormData] = useState({});
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState();
-
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setFormData((formData) => ({ ...formData, [name]: value }));
-  };
+  console.log("dados", usuario);
 
   useEffect(() => {
     UsuarioService.findById(id)
       .then((response) => {
         const usuario = response.data;
         setUsuario(usuario);
-        console.log(usuario);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  const atualizarAdmin = (e) => {
+    e.preventDefault();
+
+    UsuarioService.alterarPeloAdmin(id, usuario).then(
+      (response) => {
+        alert(response.data.message);
+      },
+      (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        // console.log(error);
+        setMessage(resMessage);
+        setSuccessful(false);
+      }
+    );
+  };
 
   /*
         A propriedade 'value' para um campo de formulário sem um manipulador 'onChange', 
@@ -51,19 +64,10 @@ const UsuarioEditar = () => {
       <div className="p-3 w-100">
         <Header goto={"/usuario"} title={"Editar Usuário"} logo={logo} />
         <section className="m-2 p-2 shadow-lg">
-          <form className="row g-2 m-5 p-2 rounded-2 shadow">
-            <div className="col-md-2">
-              <label htmlFor="inputID" className="form-label mb-1 fw-bold">
-                ID:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="inputID"
-                readOnly
-                defaultValue={usuario.id}
-              />
-            </div>
+          <form
+            onSubmit={atualizarAdmin}
+            className="row g-2 m-5 p-2 rounded-2 shadow"
+          >
             <div className="col-md-5">
               <label htmlFor="inputNome" className="form-label mb-1 fw-bold">
                 Nome:
@@ -72,7 +76,13 @@ const UsuarioEditar = () => {
                 type="text"
                 className="form-control"
                 id="inputNome"
-                defaultValue={usuario.nome}
+                value={usuario.nome}
+                onChange={(e) => {
+                  setUsuario((oldState) => ({
+                    ...oldState,
+                    nome: e.target.value,
+                  }));
+                }}
               />
             </div>
             <div className="col-md-5">
@@ -83,22 +93,16 @@ const UsuarioEditar = () => {
                 type="email"
                 className="form-control"
                 id="inputEmail4"
-                defaultValue={usuario.email}
+                value={usuario.email}
+                onChange={(e) => {
+                  setUsuario((oldState) => ({
+                    ...oldState,
+                    email: e.target.value,
+                  }));
+                }}
               />
             </div>
 
-            <div className="col-md-4 my-3">
-              <label htmlFor="inputData" className="form-label mb-1 fw-bold">
-                Data de Cadastro:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="inputData"
-                readOnly
-                defaultValue={usuario.dataCadastro}
-              />
-            </div>
             <div className="col-md-4 my-3">
               <label htmlFor="inputStatus" className="form-label mb-1 fw-bold">
                 Status:
@@ -108,7 +112,7 @@ const UsuarioEditar = () => {
                 className="form-control"
                 id="inputStatus"
                 readOnly
-                defaultValue={usuario.statusUsuario}
+                value={usuario.statusUsuario}
               />
             </div>
             <div className="col-md-4 my-3">
@@ -120,20 +124,44 @@ const UsuarioEditar = () => {
                 className="form-select"
                 readOnly
                 value={usuario.nivelAcesso}
+                onChange={(e) => {
+                  setUsuario((oldState) => ({
+                    ...oldState,
+                    nivelAcesso: e.target.value,
+                  }));
+                }}
               >
-                <option value={"USER"}>USER</option>
+                <option value={"MECANICO"}>MECANICO</option>
                 <option value={"ADMIN"}>ADMIN</option>
               </select>
             </div>
 
             <div className="col-12 mb-2 d-flex justify-content-between">
-              <button type="submit" className="btn btn-primary">
+              <button className="btn btn-primary" onClick={atualizarAdmin}>
                 Gravar Alterações
               </button>
-              <button type="button" className="btn btn-warning">
-                Reativar / Resetar a Senha
+              <button
+                type="button"
+                className="btn btn-warning"
+                onClick={() => {
+                  setUsuario((oldState) => ({
+                    ...oldState,
+                    statusUsuario: "ATIVO",
+                  }));
+                }}
+              >
+                Reativar
               </button>
-              <button type="button" className="btn btn-danger">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => {
+                  setUsuario((oldState) => ({
+                    ...oldState,
+                    statusUsuario: "INATIVO",
+                  }));
+                }}
+              >
                 Inativar Conta
               </button>
             </div>

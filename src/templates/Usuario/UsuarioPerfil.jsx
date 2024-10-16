@@ -10,18 +10,6 @@ import ImageUploaderModal from "../../components/ImageUploader/ImageUploaderModa
 
 const UsuarioPerfil = () => {
   const navigate = useNavigate();
-
-  // const objectValues = {
-  //   id: null,
-  //   nome: "",
-  //   email: "",
-  //   foto: null,
-  //   nivelAcesso: "",
-  // };
-  // const currentUser = UsuarioService.getCurrentUser();
-
-  // const [usuario, setUsuario] = useState(objectValues);
-
   const { id } = useParams();
   const _dbRecords = useRef(true);
   const [message, setMessage] = useState();
@@ -29,42 +17,42 @@ const UsuarioPerfil = () => {
   const [cidade, setCidade] = useState("");
   const [descricao, setDescricao] = useState("");
   const [telefone, setTelefone] = useState("");
-
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
   const [foto, setFoto] = useState("");
-
   const [file, setFile] = useState(null);
-
   const [chosenImage, setChosenImage] = useState();
+  const [loading, setLoading] = useState(true); // Estado de loading
 
   const setImage = (dataImage) => {
     setChosenImage(dataImage);
   };
-
-  // const handleChange = (e) => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-
-  //   setUsuario((usuario) => ({ ...usuario, [name]: value }));
-  // };
-
+  const currentUser = UsuarioService.getCurrentUser();
   useEffect(() => {
     UsuarioService.findById(id)
       .then((response) => {
         const usuario = response.data;
-        console.log("user by id", usuario);
-        setCidade(usuario?.mecanico?.cidade);
-        setDescricao(usuario?.mecanico?.descricao);
-        setTelefone(aplicarMascaraTelefone(usuario?.mecanico?.telefone));
+
         setNome(usuario.nome);
         setEmail(usuario.email);
-        setFoto(usuario.foto);
+
+        if (usuario.foto?.data) {
+          const byteArray = new Uint8Array(usuario.foto.data);
+          const blob = new Blob([byteArray], { type: "image/png" });
+          const url = URL.createObjectURL(blob);
+          setFoto(url);
+        }
+        setCidade(usuario?.mecanico?.cidade);
+        setDescricao(usuario?.mecanico?.descricao);
+
+        setTelefone(aplicarMascaraTelefone(usuario?.mecanico?.telefone));
+        setLoading(false); // Carregamento concluído
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false); // Mesmo em caso de erro, o carregamento é concluído
       });
-  }, []);
+  }, [id]);
 
   const goToAlterarSenha = () => {
     navigate(`/usuarioalterarsenha/` + id);
@@ -72,7 +60,6 @@ const UsuarioPerfil = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setMessage("");
     setSuccessful(false);
     const formData = new FormData();
@@ -91,14 +78,25 @@ const UsuarioPerfil = () => {
         telefone: telefone.replace(/\D/g, ""),
       })
     );
+
     UsuarioService.alterar(id, formData).then(
       (response) => {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            ...currentUser,
+            nome,
+            email,
+            foto: file ? file : currentUser.foto,
+            mecanico: {
+              ...currentUser.mecanico,
+              telefone,
+              descricao,
+              cidade,
+            },
+          })
+        );
         alert(response.data.message);
-
-        /*window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        })*/
       },
       (error) => {
         const resMessage =
@@ -128,16 +126,6 @@ const UsuarioPerfil = () => {
 
     return value;
   };
-  console.log(foto);
-
-  const handleImageDisplay = () => {
-    // Cria um Blob a partir do array de bytes
-    const blob = new Blob([new Uint8Array(foto)]); // ou 'image/jpeg' se for JPEG
-
-    // Cria uma URL para o Blob
-    const imageUrl = URL.createObjectURL(blob);
-    return imageUrl;
-  };
 
   return (
     <div className="d-flex">
@@ -145,151 +133,162 @@ const UsuarioPerfil = () => {
       <div className="p-3 w-100">
         <Header goto={"/home"} title={"Perfil de Usuário"} logo={logo} />
         <section className="m-1 p-1 shadow-lg">
-          <form
-            id="profile"
-            className="form-perfil row g-2 rounded-2 shadow"
-            onSubmit={handleSubmit}
-          >
-            {!successful && (
-              <>
-                <div className="col-md-12">
-                  {chosenImage ? (
-                    <img id="imgperfil" src={chosenImage} alt="..." />
-                  ) : (
-                    <img
-                      id="imgperfil"
-                      src={foto ? handleImageDisplay() : perfil}
-                      alt="..."
+          {loading ? ( // Exibe o loading enquanto os dados estão sendo carregados
+            <div className="loading">
+              <p style={{ color: "white" }}>Carregando...</p>
+            </div>
+          ) : (
+            <form
+              id="profile"
+              className="form-perfil row g-2 rounded-2 shadow"
+              onSubmit={handleSubmit}
+            >
+              {!successful && (
+                <>
+                  <div className="col-md-12">
+                    {chosenImage ? (
+                      <img id="imgperfil" src={chosenImage} alt="..." />
+                    ) : (
+                      <img
+                        id="imgperfil"
+                        src={foto ? foto : perfil}
+                        alt="..."
+                      />
+                    )}
+                  </div>
+                  <div className="col-md-12 text-center">
+                    <ImageUploaderModal
+                      setFile={setFile}
+                      setImage={setImage}
+                      chosenImage={chosenImage}
                     />
+                  </div>
+                  <div className="col-md-12 mb-3">
+                    <label
+                      htmlFor="inputNome"
+                      className="form-label mb-1 fw-bold"
+                    >
+                      Nome:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="inputNome"
+                      name="nome"
+                      value={nome || ""}
+                      onChange={(e) => {
+                        setNome(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="col-md-12 mb-3">
+                    <label
+                      htmlFor="inputEmail"
+                      className="form-label mb-1 fw-bold"
+                    >
+                      Email:
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="inputEmail"
+                      name="email"
+                      value={email || ""}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  {currentUser.nivelAcesso === "MECANICO" && (
+                    <>
+                      <div className="col-md-6 mb-3">
+                        <label
+                          htmlFor="inputTelefone"
+                          className="form-label mb-1 fw-bold"
+                        >
+                          Telefone:
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control text-center"
+                          id="inputTelefone"
+                          name="telefone"
+                          value={telefone || ""}
+                          onChange={(e) => {
+                            setTelefone(aplicarMascaraTelefone(e.target.value));
+                          }}
+                          maxLength={15}
+                        />
+                      </div>
+                      <div className="col-md-6 mb-3">
+                        <label
+                          htmlFor="inputCidade"
+                          className="form-label mb-1 fw-bold"
+                        >
+                          Cidade:
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="inputCidade"
+                          name="cidade"
+                          value={cidade || ""}
+                          onChange={(e) => {
+                            setCidade(e.target.value);
+                          }}
+                        />
+                      </div>
+                      <div className="col-md-12 mb-3">
+                        <label
+                          htmlFor="inputDescricao"
+                          className="form-label mb-1 fw-bold"
+                        >
+                          Descrição:
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="inputDescricao"
+                          name="descricao"
+                          value={descricao || ""}
+                          onChange={(e) => {
+                            setDescricao(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </>
                   )}
-                </div>
-                <div className="col-md-12 text-center">
-                  <ImageUploaderModal
-                    setFile={setFile}
-                    setImage={setImage}
-                    chosenImage={chosenImage}
-                  />
-                </div>
-                <div className="col-md-12 mb-3">
-                  <label
-                    htmlFor="inputNome"
-                    className="form-label mb-1 fw-bold"
-                  >
-                    Nome:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputNome"
-                    name="nome"
-                    value={nome || ""}
-                    onChange={(e) => {
-                      setNome(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="col-md-12 mb-3">
-                  <label
-                    htmlFor="inputNome"
-                    className="form-label mb-1 fw-bold"
-                  >
-                    Email:
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="inputEmail"
-                    name="email"
-                    value={email || ""}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="col-md-6 mb-3">
-                  <label
-                    htmlFor="inputnivelAcesso"
-                    className="form-label mb-1 fw-bold"
-                  >
-                    Telefone:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control text-center"
-                    id="inputTelefone"
-                    name="telefone"
-                    value={telefone || ""}
-                    onChange={(e) => {
-                      setTelefone(aplicarMascaraTelefone(e.target.value));
-                    }}
-                    maxLength={15}
-                  />
-                </div>
-                <div className="col-md-6 mb-3">
-                  <label
-                    htmlFor="inputStatus"
-                    className="form-label mb-1 fw-bold"
-                  >
-                    Cidade:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputDescricao"
-                    name="descricao"
-                    value={cidade || ""}
-                    onChange={(e) => {
-                      setCidade(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="col-md-12 mb-3">
-                  <label
-                    htmlFor="inputStatus"
-                    className="form-label mb-1 fw-bold"
-                  >
-                    Descrição:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="inputDescricao"
-                    name="descricao"
-                    value={descricao || ""}
-                    onChange={(e) => {
-                      setDescricao(e.target.value);
-                    }}
-                  />
-                </div>
 
-                <div className="col-12 mb-2 d-flex justify-content-between">
-                  <button type="submit" className="gravar">
-                    Gravar Alterações
-                  </button>
+                  <div className="col-12 mb-2 d-flex justify-content-between">
+                    <button type="submit" className="gravar">
+                      Gravar Alterações
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={goToAlterarSenha}
-                    className="alterarsenha"
+                    <button
+                      type="button"
+                      onClick={goToAlterarSenha}
+                      className="alterarsenha"
+                    >
+                      Alterar a Senha
+                    </button>
+                  </div>
+                </>
+              )}
+              {message && (
+                <div className="m-1">
+                  <div
+                    className={
+                      "text-center h4 fst-italic py-4 rounded-2 " +
+                      (successful ? "bg-success" : "bg-danger")
+                    }
                   >
-                    Alterar a Senha
-                  </button>
+                    {message}
+                  </div>
                 </div>
-              </>
-            )}
-            {message && (
-              <div className="m-1">
-                <div
-                  className={
-                    "text-center h4 fst-italic py-4 rounded-2 " +
-                    (successful ? "bg-success" : "bg-danger")
-                  }
-                >
-                  {message}
-                </div>
-              </div>
-            )}
-          </form>
+              )}
+            </form>
+          )}
         </section>
       </div>
     </div>

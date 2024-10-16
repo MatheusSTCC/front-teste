@@ -4,11 +4,11 @@ import Sidebar from "../../components/Menu/Menu";
 import logo from "../../assets/images/home.png";
 
 const Usuario = () => {
-  const navigate =useNavigate()
-    function handleBack() {
-      navigate(-1)
-    }
-  
+  const navigate = useNavigate();
+  function handleBack() {
+    navigate(-1);
+  }
+
   return (
     <div className="d-flex">
       <Sidebar />
@@ -16,8 +16,10 @@ const Usuario = () => {
         <Header goto={"/home"} title={"Usuário"} logo={logo} />
         <section className="m-2 p-2 shadow-lg">
           <div className="d-flex justify-content-around lusu">
-            <button type="submit" className="voltar2" onClick={handleBack}>Voltar</button>
-            <Link to={"/usuarionovo"} className="btn btn-lg btn-primary">
+            <button type="submit" className="voltar2" onClick={handleBack}>
+              Voltar
+            </button>
+            <Link to={"/usuarionovoadmin"} className="btn btn-lg btn-primary">
               Novo Usuário
             </Link>
             <Link to={"/usuarioslista"} className="btn btn-lg btn-warning">

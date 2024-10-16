@@ -1,0 +1,125 @@
+.pai{
+    text-align: center;
+
+    margin-top: 2%;
+}
+
+.filho{
+    display: inline-block;
+    color: white;
+    margin-left: 20%;
+    
+}
+
+.col-md-2 input{
+    margin-left: 4%;
+    width: 500px;
+    
+}
+
+.col-md-5{
+    display: flex;
+    margin-top: 3%;
+ 
+    
+}
+
+.col-md-5 input{
+    margin-left: 4%;
+    width: 500px;
+}
+
+
+
+.col-md-2{
+    display: flex;
+    width: 250px;
+    margin-top: 3%;
+}
+
+.col-md-2 select{
+    margin-left: 5%;
+}
+
+.paigravar{
+    text-align: center;
+    margin-right: 50%;
+    margin-top: 3%;
+}
+
+.gravar{
+    width: 200px;
+    transition: 0.5s;
+   
+}
+
+.gravar:hover{
+    background-color: transparent;
+    border: 1px solid orangered;
+    color: orange;
+    transition: 0.5s;
+}
+
+.py-4{
+    margin-top: 2em;
+    margin-right: 20em;
+}
+
+.voltarv2{
+    margin-top: 2%;
+    width: 200px;
+    height: 40px;
+    margin-right: 50%;
+    border: 1px solid orangered;
+    color: white;
+    background-color: transparent;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.voltarv2:hover{
+    border: 1px solid transparent;
+    color: white;
+    background-color: orangered;
+    transition: 0.5s;
+}
+
+.col-md-5 textarea{
+    margin-left: 1%;
+    border-radius: 10px;
+}
+
+.parte01{
+    display: flex;
+    margin-left: -3%;
+
+}
+
+.parte02{
+    display: flex;
+}
+
+.parte03{
+    display: flex;
+    margin-left: -2.5%;
+
+}
+
+.telefone{
+    margin-left: 2%;
+}
+.email{
+    margin-left: 2%;
+}
+
+.confirmpassword{
+    margin-left: 2%;
+}
+
+.textarea{
+    margin-left: 15%;
+}
+
+.send01{
+    margin-left: 19%;
+}

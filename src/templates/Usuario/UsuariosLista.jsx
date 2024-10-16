@@ -9,7 +9,6 @@ import "./UsuariosLista.css";
 const UsuariosLista = () => {
   const navigate = useNavigate();
 
-
   const goTo = () => {
     navigate("/usuarioeditar");
   };
@@ -66,22 +65,22 @@ const UsuariosLista = () => {
                       >
                         <i className="bi bi-envelope-open"> Abrir</i>
                       </button>
-
-                      
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <button type="button" className="voltarv2 alig" onClick={() => navigate(-1)}>
-    Voltar
-  </button>
+          <button
+            type="button"
+            className="voltarv2 alig"
+            onClick={() => navigate(-1)}
+          >
+            Voltar
+          </button>
         </section>
       </div>
-     
     </div>
-    
   );
 };
 

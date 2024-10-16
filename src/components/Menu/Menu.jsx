@@ -107,7 +107,11 @@ const Menu = () => {
                   <hr className="dropdown-divider" />
                 </li>
                 {currentUser?.nome && (
-                  <Link className="nav-link logout" onClick={logout}>
+                  <Link
+                    className="nav-link logout"
+                    to={"/principal"}
+                    onClick={logout}
+                  >
                     Sair
                   </Link>
                 )}

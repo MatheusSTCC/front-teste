@@ -192,7 +192,9 @@ body {
 
 .quem p {
   margin-top: 3em;
+  color: black;
   margin-right: 2em;
+  margin-left: 1%;
 }
 
 /*FOOTER*/
@@ -222,4 +224,8 @@ footer {
 }
 .logout {
   color: white;
+}
+
+.servicos a{
+  text-decoration: none;
 }

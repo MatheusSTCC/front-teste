@@ -5,10 +5,35 @@ h1{
 p{
   color: white;
   margin: 2% 10%;
-  font-size: 20px;
+  font-size: 15px;
   margin-bottom: 0;
 }
   
 .voltarv3{
-  margin-left: 40%;
+ margin: 0 43%;
+ margin-top: 2%;
+
+ width: 200px;
+ height: 40px;
+
+ border-radius: 1px solid;
+ border-radius: 10px;
+ background-color: transparent;
+ color: white;
+ border-color: orangered;
+
+ transition: 0.5s;
+}
+
+
+.voltarv3:hover{
+  color: white;
+  background-color: orangered;
+  border-color: transparent;
+ 
+  transition: 0.5s;
+}
+
+.conteud{
+  width: 1300px;
 }

@@ -52,8 +52,8 @@ Esta política é efetiva a partir de 14 October 2024 22:02</p>
                   Voltar
                 </button>
 
-
-  </div>
+                </div>
+  
 );
 
 };

@@ -53,7 +53,7 @@ const UsuarioPerfil = () => {
     UsuarioService.findById(id)
       .then((response) => {
         const usuario = response.data;
-
+        console.log("user by id", usuario);
         setCidade(usuario?.mecanico?.cidade);
         setDescricao(usuario?.mecanico?.descricao);
         setTelefone(aplicarMascaraTelefone(usuario?.mecanico?.telefone));
@@ -79,13 +79,18 @@ const UsuarioPerfil = () => {
     if (file) {
       formData.append("file", file);
     }
-    formData.telefone = telefone.replace(/\D/g, "");
-    formData.cidade = cidade;
-    formData.descricao = descricao;
-    formData.nome = nome;
-    formData.email = email;
-    formData.imagem = file;
 
+    formData.append(
+      "dados",
+      JSON.stringify({
+        nome,
+        email,
+        telefone,
+        descricao,
+        cidade,
+        telefone: telefone.replace(/\D/g, ""),
+      })
+    );
     UsuarioService.alterar(id, formData).then(
       (response) => {
         alert(response.data.message);
@@ -123,8 +128,17 @@ const UsuarioPerfil = () => {
 
     return value;
   };
+  console.log(foto);
 
-  console.log(chosenImage);
+  const handleImageDisplay = () => {
+    // Cria um Blob a partir do array de bytes
+    const blob = new Blob([new Uint8Array(foto)]); // ou 'image/jpeg' se for JPEG
+
+    // Cria uma URL para o Blob
+    const imageUrl = URL.createObjectURL(blob);
+    return imageUrl;
+  };
+
   return (
     <div className="d-flex">
       <Sidebar />
@@ -144,7 +158,7 @@ const UsuarioPerfil = () => {
                   ) : (
                     <img
                       id="imgperfil"
-                      src={foto ? "data:image/jpeg;base64," + foto : perfil}
+                      src={foto ? handleImageDisplay() : perfil}
                       alt="..."
                     />
                   )}

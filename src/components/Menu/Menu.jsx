@@ -7,8 +7,6 @@ const Menu = () => {
   const currentUser = UsuarioService.getCurrentUser();
 
   const navigate = useNavigate();
- 
-
 
   const logout = () => {
     UsuarioService.logout();
@@ -22,7 +20,7 @@ const Menu = () => {
   return (
     <nav className="navbar navbar-dark bg-dark fixed-top">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/principal">
           <img
             src={logo}
             alt="logo"
@@ -88,7 +86,6 @@ const Menu = () => {
               </li>
 
               <li className="nav-item dropdown">
-               
                 <ul className="dropdown-menu dropdown-menu-dark">
                   <li>
                     <Link className="dropdown-item" to={"/#"}>
@@ -105,14 +102,15 @@ const Menu = () => {
                   </li>
                 </ul>
               </li>
-             <li className="nav-item">
-                
+              <li className="nav-item">
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
-                <Link className="nav-link logout" onClick={logout}>
-                  Sair
-                </Link>
+                {currentUser?.nome && (
+                  <Link className="nav-link logout" onClick={logout}>
+                    Sair
+                  </Link>
+                )}
               </li>
             </ul>
           </div>

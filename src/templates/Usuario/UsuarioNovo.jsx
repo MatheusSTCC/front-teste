@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import Sidebar from "../../components/Menu/Menu";
 import logo from "../../assets/images/home.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UsuarioService from "../../services/UsuarioService";
 import "./UsuarioNovo.css";
 
@@ -12,7 +12,10 @@ const UsuarioNovo = () => {
   const [formData, setFormData] = useState({});
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState();
-
+  const [estados, setEstados] = useState([]);
+  const [cidades, setCidades] = useState([]);
+  const [estadoSelecionado, setEstadoSelecionado] = useState("");
+  const [cidadeSelecionado, setCidadeSelecionado] = useState("");
   const handleChange = (e) => {
     const name = e.target.name;
     let value = e.target.value;
@@ -50,12 +53,25 @@ const UsuarioNovo = () => {
       return setMessage("As senhas não conferem!");
     }
     setSuccessful(false);
-    formData.nivelAcesso = "MECANICO";
 
+    // const estadoNome = estados.find(
+    //   (estado) => estado?.id === Number(estadoSelecionado)
+    // )?.nome;
+    // const cidadeNome = cidades.find(
+    //   (cidade) => (cidade) => cidade?.id === Number(cidadeSelecionado)
+    // )?.nome;
+
+    formData.nivelAcesso = "MECANICO";
+    formData.telefone = formData.telefone.replace(/\D/g, "");
+    // formData.cidade = `${estadoNome}/${cidadeNome}`;
+    console.log(formData);
     UsuarioService.create(formData).then(
       (response) => {
-        setMessage(response.data.message);
-        setSuccessful(true);
+        // setMessage(response.data.message);
+
+        // setSuccessful(true);
+        alert(response.data.message);
+        navigate("/login");
         /*window.scrollTo({
                   top: 0,
                   behavior: 'smooth'
@@ -82,6 +98,51 @@ const UsuarioNovo = () => {
       passwordInputConfirm.type = "password";
       toggleButton.textContent = "Mostrar";
     }
+  };
+
+  const carregarCidades = async (estadoId) => {
+    try {
+      const response = await fetch(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoId}/municipios`
+      );
+      const data = await response.json();
+      setCidades(data);
+    } catch (error) {
+      console.error("Erro ao carregar cidades:", error);
+    }
+  };
+
+  // useEffect(() => {
+  //   const carregarEstados = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+  //       );
+
+  //       const data = await response.json();
+
+  //       setEstados(data);
+  //     } catch (error) {
+  //       console.error("Erro ao carregar estados:", error);
+  //     }
+  //   };
+
+  //   carregarEstados();
+  // }, []);
+
+  const handleEstadoChange = (e) => {
+    const estadoId = e.target.value;
+
+    setEstadoSelecionado(estadoId);
+    setCidades([]); // Limpa as cidades ao mudar o estado
+    if (estadoId) {
+      carregarCidades(estadoId);
+    }
+  };
+
+  const handleCidadeChange = (e) => {
+    const cidadeSelectedId = e.target.value;
+    setCidadeSelecionado(cidadeSelectedId);
   };
 
   return (
@@ -216,6 +277,29 @@ const UsuarioNovo = () => {
                   </div>
                 </div>
                 <div className="col-md-5 confirmpassword">
+                  {/* <label>Estado:</label>
+                  <select
+                    id="estado"
+                    value={estadoSelecionado}
+                    onChange={handleEstadoChange}
+                  >
+                    <option value="">Selecione um estado</option>
+                    {estados.map((estado) => (
+                      <option key={estado.id} value={estado.id}>
+                        {estado.nome}
+                      </option>
+                    ))}
+                  </select>
+
+                  <label>Cidade:</label>
+                  <select id="cidade" onChange={handleCidadeChange}>
+                    <option value="">Selecione uma cidade</option>
+                    {cidades.map((cidade) => (
+                      <option key={cidade.id} value={cidade.id}>
+                        {cidade.nome}
+                      </option>
+                    ))}
+                  </select> */}
                   <label
                     htmlFor="inputEmail"
                     className="form-label mb-1 fw-bold"
@@ -239,12 +323,13 @@ const UsuarioNovo = () => {
                     Descrição:
                   </label>
                   <textarea
-                    placeholder=" Conte mais sobre você e sobre suas experiências"
+                    placeholder="Conte mais sobre você e sobre suas experiências"
                     name="descricao"
                     id="descricao"
                     cols="140"
                     rows="3"
-                  ></textarea>
+                    onChange={handleChange}
+                  />
                 </div>
 
                 {/*      
